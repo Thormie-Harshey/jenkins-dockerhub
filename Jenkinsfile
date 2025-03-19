@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        ImageRegistry = 'oluwaseuna'
-        EC2_IP = '54.171.233.251'
+        ImageRegistry = 'thormie'
+        EC2_IP = '44.202.57.140'
         DockerComposeFile = 'docker-compose.yml'
         DotEnvFile = '.env'
     }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     echo "Pushing Image to DockerHub..."
-                    withCredentials([usernamePassword(credentialsId: 'docker-login', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh "echo $PASS | docker login -u $USER --password-stdin"
                         sh "docker push ${ImageRegistry}/${JOB_NAME}:${BUILD_NUMBER}"
                     }
