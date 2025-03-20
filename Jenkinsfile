@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker Image..."
-                    echo "Running on: $(hostname)"
+                    sh 'echo "Running on: $(hostname)"'
                     sh "docker build -t ${ImageRegistry}/${JOB_NAME}:${BUILD_NUMBER} ."
                 }
             }
